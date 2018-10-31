@@ -33,22 +33,20 @@ UINavigationControllerDelegate {
         .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         .strokeWidth: -2.0]
     
+    func configureMemeTextField(textField: UITextField, text: String, delegate: MemeTextFieldDelegate) {
+        textField.text = text
+        textField.delegate = delegate
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
-        
-        topTextField.delegate = topTextFieldDelegate
-        bottomTextField.delegate = bottomTextFieldDelegate
+        configureMemeTextField(textField: topTextField, text: "TOP", delegate: topTextFieldDelegate)
+        configureMemeTextField(textField: bottomTextField, text: "BOTTOM", delegate: bottomTextFieldDelegate)
         
         shareButton.isEnabled = false
     }
