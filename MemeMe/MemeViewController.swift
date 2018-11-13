@@ -8,19 +8,26 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate,
+
+struct Meme {
+    let topText: String?
+    let bottomText: String?
+    let originalImage: UIImage?
+    let memedImage: UIImage?
+}
+
+class MemeViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
 
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
-        
-    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     @IBOutlet weak var toolbar: UIToolbar!
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    
+
+    lazy var shareButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareMeme))
+
     // a variable to hold the generated meme
     var meme: Meme!
     
@@ -47,8 +54,10 @@ UINavigationControllerDelegate {
         
         configureMemeTextField(textField: topTextField, text: "TOP", delegate: topTextFieldDelegate)
         configureMemeTextField(textField: bottomTextField, text: "BOTTOM", delegate: bottomTextFieldDelegate)
+        shareButtonItem.isEnabled = false
         
-        shareButton.isEnabled = false
+        navigationItem.rightBarButtonItem = shareButtonItem
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,14 +91,14 @@ UINavigationControllerDelegate {
     
     //MARK: - Delegates
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         
         imagePickerView.image = image
         dismiss(animated:true, completion: nil)
-        shareButton.isEnabled = true
+        shareButtonItem.isEnabled = true
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -127,16 +136,9 @@ UINavigationControllerDelegate {
     
     //MARK: sharing and saving
 
-    struct Meme {
-        let topText: String?
-        let bottomText: String?
-        let originalImage: UIImage?
-        let memedImage: UIImage?
-    }
     
     func generateMemedImage() -> UIImage {
         // hide the toolbar and navigation bar so that they will not appear in the meme
-        navigationBar.isHidden = true
         toolbar.isHidden = true
         
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -145,7 +147,6 @@ UINavigationControllerDelegate {
         UIGraphicsEndImageContext()
 
         // show the tool bar and the navigation bar again
-        navigationBar.isHidden = false
         toolbar.isHidden = false
 
         return memedImage
@@ -153,7 +154,10 @@ UINavigationControllerDelegate {
     
     
     func save(_ memedImage: UIImage) {
-        meme = Meme(topText: topTextField.text, bottomText: bottomTextField.text, originalImage: imagePickerView.image, memedImage: memedImage)
+        let meme = Meme(topText: topTextField.text, bottomText: bottomTextField.text, originalImage: imagePickerView.image, memedImage: memedImage)
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
         UIImageWriteToSavedPhotosAlbum(meme.memedImage!, self, nil, nil)
     }
 
@@ -180,6 +184,12 @@ UINavigationControllerDelegate {
         // see https://medium.com/@dushyant_db/how-to-present-uiactivityviewcontroller-on-iphone-and-ipad-ae72013d2a5a
         if let popOver = shareViewController.popoverPresentationController {
             popOver.sourceView = self.view
+        }
+    }
+    @IBAction func backToTabView(_ sender: Any) {
+        if let navigationController = navigationController {
+            print("navigating back")
+            navigationController.popToRootViewController(animated: true)
         }
     }
 }
