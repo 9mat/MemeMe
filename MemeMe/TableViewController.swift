@@ -42,9 +42,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         print("select row \(indexPath.row)")
         let meme = memes[indexPath.row]
         let memeViewController = storyboard?.instantiateViewController(withIdentifier: "MemeViewController") as! MemeViewController
-        memeViewController.topTextField.text = meme.topText
-        memeViewController.bottomTextField.text = meme.bottomText
-        memeViewController.imagePickerView.image = meme.originalImage
+        memeViewController.meme = meme
         navigationController!.pushViewController(memeViewController, animated: true)
     }
     
@@ -56,6 +54,9 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         memeTableView.reloadData()
+        memeTableView.allowsSelection = true
+        memeTableView.isUserInteractionEnabled = true
+        memeTableView.delegate = self
     }
     
 }

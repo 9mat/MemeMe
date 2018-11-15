@@ -49,6 +49,7 @@ UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
@@ -56,15 +57,18 @@ UINavigationControllerDelegate {
         configureMemeTextField(textField: bottomTextField, text: "BOTTOM", delegate: bottomTextFieldDelegate)
         shareButtonItem.isEnabled = false
         
-        navigationItem.rightBarButtonItem = shareButtonItem
+        if let oldMeme = meme {
+            topTextField.text = oldMeme.topText
+            bottomTextField.text = oldMeme.bottomText
+            imagePickerView.image = oldMeme.originalImage
+            shareButtonItem.isEnabled = true
+        }
         
+        navigationItem.rightBarButtonItem = shareButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // subscribe to be notified when keyboard appear
-        // so that we can adjust the image and bottom text accordingly
         subscribeToKeyboardNotifications()
     }
     
@@ -149,21 +153,16 @@ UINavigationControllerDelegate {
         // show the tool bar and the navigation bar again
         toolbar.isHidden = false
         
+        // crop the meme to the size of the image view
         let croppedMemeImage = memedImage.cgImage?.cropping(to: imagePickerView.frame)
-                
+        
+        // return the cropped image
         return UIImage(cgImage: croppedMemeImage!)
     }
     
-    
     func save(_ memedImage: UIImage) {
-        print("saving")
-        let meme = Meme(topText: topTextField.text, bottomText: bottomTextField.text, originalImage: imagePickerView.image, memedImage: memedImage)
-        // Add it to the memes array in the Application Delegate
-        let object = UIApplication.shared.delegate
-        let appDelegate = object as! AppDelegate
-        appDelegate.memes.append(meme)
-        print("after add")
-        print(String(appDelegate.memes.count))
+        meme = Meme(topText: topTextField.text, bottomText: bottomTextField.text, originalImage: imagePickerView.image, memedImage: memedImage)
+        (UIApplication.shared.delegate as! AppDelegate).memes.append(meme)
         UIImageWriteToSavedPhotosAlbum(meme.memedImage!, self, nil, nil)
     }
 
