@@ -55,6 +55,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="z1f-T7-EXE"/>
                     <connections>
+                        <outlet property="memeTableView" destination="8jh-Ah-kjo" id="DJO-1X-gqP"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addNewMeme" id="dru-O9-X1X"/>
                     </connections>
                 </viewController>
@@ -65,7 +66,7 @@
         <!--Meme View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MemeViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeViewController" id="BYZ-38-t0r" customClass="MemeViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -148,16 +148,22 @@ UINavigationControllerDelegate {
 
         // show the tool bar and the navigation bar again
         toolbar.isHidden = false
-
-        return memedImage
+        
+        let croppedMemeImage = memedImage.cgImage?.cropping(to: imagePickerView.frame)
+                
+        return UIImage(cgImage: croppedMemeImage!)
     }
     
     
     func save(_ memedImage: UIImage) {
+        print("saving")
         let meme = Meme(topText: topTextField.text, bottomText: bottomTextField.text, originalImage: imagePickerView.image, memedImage: memedImage)
+        // Add it to the memes array in the Application Delegate
         let object = UIApplication.shared.delegate
         let appDelegate = object as! AppDelegate
         appDelegate.memes.append(meme)
+        print("after add")
+        print(String(appDelegate.memes.count))
         UIImageWriteToSavedPhotosAlbum(meme.memedImage!, self, nil, nil)
     }
 
@@ -168,7 +174,8 @@ UINavigationControllerDelegate {
         // set up a handler to save the meme to album after finishing sharing
         shareViewController.completionWithItemsHandler = {
             (activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            
+            print("complation")
+            print(error.debugDescription)
             // no saving if user cancels photo sharing
             if !completed {
                 return
