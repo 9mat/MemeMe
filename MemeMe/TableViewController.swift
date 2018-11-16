@@ -9,14 +9,27 @@
 import Foundation
 import UIKit
 
+
+protocol SentMemes {
+    var memes: [Meme]! { get }
+    var addButtonItem: UIBarButtonItem { get }
+    
+}
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     lazy var addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewMeme))
         
     @IBOutlet weak var memeTableView: UITableView!
     
     @objc func addNewMeme() {
-        print("click add")
         self.performSegue(withIdentifier: "addNewMeme", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addNewMeme" {
+            let backItem = UIBarButtonItem()
+            backItem.title = "Cancel"
+            navigationItem.backBarButtonItem = backItem
+        }
     }
     
     var memes: [Meme]! {
@@ -39,11 +52,9 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("select row \(indexPath.row)")
-        let meme = memes[indexPath.row]
-        let memeViewController = storyboard?.instantiateViewController(withIdentifier: "MemeViewController") as! MemeViewController
-        memeViewController.meme = meme
-        navigationController!.pushViewController(memeViewController, animated: true)
+        let memeDetailViewController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+        memeDetailViewController.meme = memes[indexPath.row]
+        navigationController!.pushViewController(memeDetailViewController, animated: true)
     }
     
     override func viewDidLoad() {
@@ -53,9 +64,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        memeTableView.reloadData()
-        memeTableView.allowsSelection = true
-        memeTableView.isUserInteractionEnabled = true
+        memeTableView.reloadData()        
         memeTableView.delegate = self
     }
     

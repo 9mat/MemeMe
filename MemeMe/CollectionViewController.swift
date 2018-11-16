@@ -41,17 +41,14 @@ class CollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MemeCollectionViewCell", for: indexPath) as! MemeCollectionViewCell
-        print("meme count = \(memes.count), index = \(indexPath.item), cell = \(String(describing: cell.memeImageView))")
         cell.memeImageView.image = memes[indexPath.item].memedImage
         return cell
-
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let meme = memes[indexPath.item]
-        let memeViewController = storyboard?.instantiateViewController(withIdentifier: "MemeViewController") as! MemeViewController
-        memeViewController.meme = meme
-        navigationController!.pushViewController(memeViewController, animated: true)
+        let memeDetailViewController = storyboard?.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+        memeDetailViewController.meme = memes[indexPath.item]
+        navigationController!.pushViewController(memeDetailViewController, animated: true)
     }
     
     @objc func addNewMeme() {
@@ -74,10 +71,6 @@ class CollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         memeCollectionView.reloadData()
-//        memeTableView.reloadData()
-//        memeTableView.allowsSelection = true
-//        memeTableView.isUserInteractionEnabled = true
-//        memeTableView.delegate = self
     }
     
 }

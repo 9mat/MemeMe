@@ -57,6 +57,7 @@
                     <connections>
                         <outlet property="memeTableView" destination="8jh-Ah-kjo" id="DJO-1X-gqP"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addNewMeme" id="dru-O9-X1X"/>
+                        <segue destination="h5B-qV-frq" kind="show" id="cyI-MA-u4m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUG-tY-ecA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -112,22 +113,52 @@
                         <outlet property="flowLayout" destination="48M-e4-PXX" id="MkD-Q2-jd6"/>
                         <outlet property="memeCollectionView" destination="D74-sN-zL0" id="RNl-Cf-JRP"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addNewMeme" id="JzF-lD-3Tm"/>
+                        <segue destination="h5B-qV-frq" kind="show" id="YdT-Pc-HUh"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Drq-Ik-vcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1666.6666666666667" y="466.304347826087"/>
         </scene>
+        <!--Meme Detail View Controller-->
+        <scene sceneID="ShW-HD-MPf">
+            <objects>
+                <viewController storyboardIdentifier="MemeDetailViewController" id="h5B-qV-frq" customClass="MemeDetailViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Ht-Sk-l6g">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pUD-CK-mGT">
+                                <rect key="frame" x="0.0" y="7.6666666666666856" width="414" height="736"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pUD-CK-mGT" firstAttribute="height" secondItem="8Ht-Sk-l6g" secondAttribute="height" id="FkA-c7-JQt"/>
+                            <constraint firstItem="pUD-CK-mGT" firstAttribute="centerX" secondItem="GzG-rK-5Vd" secondAttribute="centerX" id="jYq-eX-uhG"/>
+                            <constraint firstItem="pUD-CK-mGT" firstAttribute="centerY" secondItem="GzG-rK-5Vd" secondAttribute="centerY" id="pga-o7-DnQ"/>
+                            <constraint firstItem="pUD-CK-mGT" firstAttribute="width" secondItem="8Ht-Sk-l6g" secondAttribute="width" id="rMD-wd-f8p"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GzG-rK-5Vd"/>
+                    </view>
+                    <connections>
+                        <outlet property="memeDetailImageView" destination="pUD-CK-mGT" id="4Ob-b5-ZoO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CBJ-cL-oup" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2635" y="466"/>
+        </scene>
         <!--Meme View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="MemeViewController" id="BYZ-38-t0r" customClass="MemeViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MemeViewController" hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="MemeViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyB-3n-X2d">
-                                <rect key="frame" x="0.0" y="643" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="692" width="414" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="B9m-wJ-bfG"/>
                                 </constraints>
@@ -147,7 +178,7 @@
                                 </items>
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SNu-Y3-gsy">
-                                <rect key="frame" x="0.0" y="64" width="414" height="579"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="628"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="TOP" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="j2a-m8-k0d" userLabel="Top Text Field">
@@ -157,7 +188,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Wa5-Hw-G71" userLabel="Bottom Text Field">
-                                <rect key="frame" x="0.0" y="579" width="414" height="48"/>
+                                <rect key="frame" x="0.0" y="628" width="414" height="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -195,7 +226,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2655" y="130"/>
+            <point key="canvasLocation" x="2636" y="-210"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oEb-Dh-kJo">
@@ -234,11 +265,11 @@
             </objects>
             <point key="canvasLocation" x="-236" y="131"/>
         </scene>
-        <!--Item-->
+        <!--Collection-->
         <scene sceneID="CeA-yf-HL6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9tC-30-Gb8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Gft-vB-CO8"/>
+                    <tabBarItem key="tabBarItem" title="Collection" id="Gft-vB-CO8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GC3-qz-rqv">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -255,6 +286,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="JzF-lD-3Tm"/>
+        <segue reference="dru-O9-X1X"/>
+        <segue reference="cyI-MA-u4m"/>
     </inferredMetricsTieBreakers>
 </document>

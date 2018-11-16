@@ -16,6 +16,22 @@ struct Meme {
     let memedImage: UIImage?
 }
 
+class MemeTextFieldDelegate: NSObject, UITextFieldDelegate {
+    var isUsingDefaultText: Bool = true
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if isUsingDefaultText {
+            textField.text = ""
+            isUsingDefaultText = false
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
 class MemeViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
 
