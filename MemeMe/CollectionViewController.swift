@@ -55,6 +55,14 @@ class CollectionViewController: UICollectionViewController {
         self.performSegue(withIdentifier: "addNewMeme", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addNewMeme" {
+            let backItem = UIBarButtonItem()
+            backItem.title = "Cancel"
+            navigationItem.backBarButtonItem = backItem
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = addButtonItem

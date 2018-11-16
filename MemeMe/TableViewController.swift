@@ -10,11 +10,6 @@ import Foundation
 import UIKit
 
 
-protocol SentMemes {
-    var memes: [Meme]! { get }
-    var addButtonItem: UIBarButtonItem { get }
-    
-}
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     lazy var addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewMeme))
         

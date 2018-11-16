@@ -57,7 +57,7 @@
                     <connections>
                         <outlet property="memeTableView" destination="8jh-Ah-kjo" id="DJO-1X-gqP"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addNewMeme" id="dru-O9-X1X"/>
-                        <segue destination="h5B-qV-frq" kind="show" id="cyI-MA-u4m"/>
+                        <segue destination="h5B-qV-frq" kind="show" identifier="showMemeDetailView" id="cyI-MA-u4m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUG-tY-ecA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -113,7 +113,7 @@
                         <outlet property="flowLayout" destination="48M-e4-PXX" id="MkD-Q2-jd6"/>
                         <outlet property="memeCollectionView" destination="D74-sN-zL0" id="RNl-Cf-JRP"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addNewMeme" id="JzF-lD-3Tm"/>
-                        <segue destination="h5B-qV-frq" kind="show" id="YdT-Pc-HUh"/>
+                        <segue destination="h5B-qV-frq" kind="show" identifier="showMemeDetailView" id="YdT-Pc-HUh"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Drq-Ik-vcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,11 +228,11 @@
             </objects>
             <point key="canvasLocation" x="2636" y="-210"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--List-->
         <scene sceneID="oEb-Dh-kJo">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ztg-fO-3Az" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" id="d7F-PQ-zq2"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list" selectedImage="list" id="d7F-PQ-zq2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bd2-RS-6eo">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -269,7 +269,7 @@
         <scene sceneID="CeA-yf-HL6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9tC-30-Gb8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Collection" id="Gft-vB-CO8"/>
+                    <tabBarItem key="tabBarItem" title="Collection" image="collection" selectedImage="collection" id="Gft-vB-CO8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GC3-qz-rqv">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -285,6 +285,10 @@
             <point key="canvasLocation" x="761" y="467"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="collection" width="30" height="30"/>
+        <image name="list" width="30" height="30"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="dru-O9-X1X"/>
         <segue reference="cyI-MA-u4m"/>
